@@ -5,4 +5,4 @@ var WidgetSchema = new Schema({
     name: String
 });
 
-module.exports = mongoose.model('Widget', WidgetSchema);
+module.exports = mongoose.model('Widget', WidgetSchema, 'widgets');

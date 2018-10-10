@@ -9,7 +9,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Connect to MongoDB database
-mongoose.connect('mongodb://localhost:32017/widget');
+mongoose.connect('mongodb://localhost:32017/widgets', { useMongoClient: true }, function (err, db) {
+    if (err) {
+        console.log("Database connection failed: " + err);
+    } else {
+        console.log("Connected to database!");
+    }
+});
 
 var port = process.env.PORT || 8080;
 
@@ -26,6 +32,23 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res) {
     res.json({ message: 'Welcome to the Widget API!' });
 });
+
+// Widget routes
+router.route("/widgets")
+    .get(function(req, res) {
+        Widget.find(function(err, widgets) {
+            if (err) res.send(err);
+            res.json(widgets);
+        });
+    })
+    .post(function(req, res) {
+        var widget = new Widget({ name: req.body.name });
+
+        widget.save(function(err) {
+            if (err) res.send(err);
+            res.json({ message: "Widget created!" });
+        });
+    });
 
 // Register routes
 app.use('/api/', router);

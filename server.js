@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Widget = require('./app/models/widget');
 
 // Configure app to use BodyParser to make working with POSTs easier
 app.use(bodyParser.urlencoded({ extended: true }));

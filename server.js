@@ -55,6 +55,7 @@ router.route("/widgets/:widget_id")
     .get(function(req, res) {
         Widget.findById(req.params.widget_id, function(err, widget) {
             if (err) res.send(err);
+            console.log(JSON.stringify(widget));
             if (widget) {
                 res.json(widget);
             } else {
@@ -84,6 +85,34 @@ router.route("/widgets/:widget_id")
             if (err) res.send(err);
             res.json({ message: "Widget deleted!" });
         });
+    });
+
+router.route("/widgets/:widget_id/gizmos")
+    .get(function(req, res) {
+        Widget.findById(req.params.widget_id, function(err, widget) {
+            if (err) res.send(err);
+            if (widget) {
+                res.json(widget.gizmos);
+            } else {
+                res.status(404).send({ message: "Widget not found." });
+            }
+        });
+    })
+    .post(function(req, res) {
+        Widget.findById(req.params.widget_id, function(err, widget) {
+            if (err) res.send(err);
+            if (widget) {
+                widget.gizmos.push({ name: req.body.name });
+
+                widget.save(function(err) {
+                    if (err) res.send(err);
+                    res.json({ message: "Gizmo created!" });
+                });
+            } else {
+                res.status(404).send({ message: "Widget not found." });
+            }
+        });
+
     });
 
 // Register routes

@@ -1,0 +1,12 @@
+{
+  "name": "api-example",
+  "version": "1.0.0",
+  "description": "Simple Express API example",
+  "main": "server.js",
+  "author": "Warren Jones",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

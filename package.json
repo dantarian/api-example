@@ -7,9 +7,15 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "body-parser": "~1.0.1",
     "express": "~4.16.3",
-    "mongoose": "~3.6.13",
     "mongodb": "~3.1.7",
-    "body-parser": "~1.0.1"
+    "mongoose": "~3.6.13"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "devserver": "./node_modules/nodemon/bin/nodemon.js server.js"
   }
 }

@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Connect to MongoDB database
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:32017/widgets', { useMongoClient: true }, function (err, db) {
     if (err) {
         console.log("Database connection failed: " + err);
@@ -48,6 +49,26 @@ router.route("/widgets")
             if (err) res.send(err);
             res.json({ message: "Widget created!" });
         });
+    });
+
+router.route("/widgets/:widget_id")
+    .get(function(req, res) {
+        Widget.findById(req.params.widget_id, function(err, widget) {
+            if (err) res.send(err);
+            res.json(widget);
+        });
+    })
+    .put(function(req, res) {
+        Widget.findById(req.params.widget_id, function(err, widget) {
+            if (err) res.send(err);
+            widget.name = req.body.name;
+
+            widget.save(function(err) {
+                if (err) res.send(err);
+                res.json({ message: "Widget updated!" });
+            });
+        });
+
     });
 
 // Register routes

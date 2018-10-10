@@ -68,7 +68,14 @@ router.route("/widgets/:widget_id")
                 res.json({ message: "Widget updated!" });
             });
         });
-
+    })
+    .delete(function(req, res) {
+        Widget.remove({
+            _id: req.params.widget_id
+        }, function(err, widget) {
+            if (err) res.send(err);
+            res.json({ message: "Widget deleted!" });
+        });
     });
 
 // Register routes

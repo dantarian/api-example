@@ -55,18 +55,26 @@ router.route("/widgets/:widget_id")
     .get(function(req, res) {
         Widget.findById(req.params.widget_id, function(err, widget) {
             if (err) res.send(err);
-            res.json(widget);
+            if (widget) {
+                res.json(widget);
+            } else {
+                res.status(404).send({ message: "Widget not found." });
+            }
         });
     })
     .put(function(req, res) {
         Widget.findById(req.params.widget_id, function(err, widget) {
             if (err) res.send(err);
-            widget.name = req.body.name;
+            if (widget) {
+                widget.name = req.body.name;
 
-            widget.save(function(err) {
-                if (err) res.send(err);
-                res.json({ message: "Widget updated!" });
-            });
+                widget.save(function(err) {
+                    if (err) res.send(err);
+                    res.json({ message: "Widget updated!" });
+                });
+            } else {
+                res.status(404).send({ message: "Widget not found." });
+            }
         });
     })
     .delete(function(req, res) {

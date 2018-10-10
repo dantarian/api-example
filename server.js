@@ -18,7 +18,7 @@ var router = express.Router();
 
 // Request logging
 router.use(function(req, res, next) {
-    console.log("Request received: " + req);
+    console.log("Request received: " + req.originalUrl);
     next();
 });
 

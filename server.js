@@ -15,6 +15,14 @@ var port = process.env.PORT || 8080;
 
 // Set up routes
 var router = express.Router();
+
+// Request logging
+router.use(function(req, res, next) {
+    console.log("Request received: " + req);
+    next();
+});
+
+// Simple route to check API is up and running
 router.get('/', function(req, res) {
     res.json({ message: 'Welcome to the Widget API!' });
 });

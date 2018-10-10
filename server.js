@@ -1,10 +1,14 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 // Configure app to use BodyParser to make working with POSTs easier
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Connect to MongoDB database
+mongoose.connect('mongodb://localhost:32017/widget');
 
 var port = process.env.PORT || 8080;
 

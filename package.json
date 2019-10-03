@@ -6,15 +6,19 @@
   "author": "Warren Jones",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dantarian/api-example.git"
+  },
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "express": "^4.16.3",
-    "mongoose": "^4.9.2"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.19.3"
   },
   "scripts": {
-    "devserver": "./node_modules/nodemon/bin/nodemon.js server.js"
+    "devserver": "nodemon server.js"
   }
 }

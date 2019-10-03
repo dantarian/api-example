@@ -1,16 +1,24 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var Widget = require('./app/models/widget');
+// Dependencies
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Widget = require('./app/models/widget');
 
 // Configure app to use BodyParser to make working with POSTs easier
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Mongo configuration
+const mongoURL = "mongodb://localhost:27017/widgets"
+const mongoConfig = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}
+
 // Connect to MongoDB database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:32017/widgets', { useMongoClient: true }, function (err, db) {
+mongoose.connect(mongoURL, mongoConfig, function (err, db) {
     if (err) {
         console.log("Database connection failed: " + err);
     } else {
@@ -18,10 +26,10 @@ mongoose.connect('mongodb://localhost:32017/widgets', { useMongoClient: true }, 
     }
 });
 
-var port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 // Set up routes
-var router = express.Router();
+const router = express.Router();
 
 // Request logging
 router.use(function(req, res, next) {
@@ -43,7 +51,7 @@ router.route("/widgets")
         });
     })
     .post(function(req, res) {
-        var widget = new Widget({ name: req.body.name });
+        const widget = new Widget({ name: req.body.name });
 
         widget.save(function(err) {
             if (err) res.send(err);

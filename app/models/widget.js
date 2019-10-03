@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var GizmoSchema = new Schema({
+const GizmoSchema = new Schema({
     name: String
 })
 
-var WidgetSchema = new Schema({
+const WidgetSchema = new Schema({
     name: String,
     gizmos: [GizmoSchema]
 });

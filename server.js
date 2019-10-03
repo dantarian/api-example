@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 // Connect to MongoDB database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:32017/widgets', { useMongoClient: true }, function (err, db) {
+mongoose.connect('mongodb://localhost:27017/widgets', { useMongoClient: true }, function (err, db) {
     if (err) {
         console.log("Database connection failed: " + err);
     } else {
